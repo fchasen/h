@@ -12,6 +12,7 @@ from __future__ import absolute_import
 
 import logging
 import os
+from datetime import timedelta
 
 from celery import Celery
 from celery import signals
@@ -23,7 +24,10 @@ from raven.contrib.celery import register_signal, register_logger_signal
 __all__ = (
     'celery',
     'get_task_logger',
+    'indexer_check_schedule',
 )
+
+indexer_check_schedule = timedelta(minutes=1)
 
 log = logging.getLogger(__name__)
 
@@ -44,12 +48,19 @@ celery.conf.update(
     CELERY_ROUTES={
         'h.indexer.add_annotation': 'indexer',
         'h.indexer.delete_annotation': 'indexer',
+        'h.indexer.check_index': 'indexer',
     },
     CELERY_TASK_SERIALIZER='json',
     # Only accept one task at a time. This also probably isn't what we want
     # (especially not for, say, a search indexer task) but it makes the
     # behaviour consistent with the previous NSQ-based worker:
     CELERYD_PREFETCH_MULTIPLIER=1,
+    CELERYBEAT_SCHEDULE={
+        'indexer.check_index': {
+            'task': 'h.indexer.check_index',
+            'schedule': indexer_check_schedule,
+        }
+    }
 )
 
 
