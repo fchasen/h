@@ -5,6 +5,10 @@
   .excerpt {
     transition: max-height $expand-duration ease-in;
     overflow: hidden;
+
+    p {
+      margin: 0;
+    }
   }
 
   // a container which wraps the <excerpt> and contains the excerpt
@@ -27,6 +31,7 @@
   .excerpt__toggle-link {
     padding-left: 15px;
     background-image: linear-gradient(to right, transparent 0px, white 12px);
+    line-height: $normal-line-height;
   }
 
   .excerpt__toggle-link > a {
