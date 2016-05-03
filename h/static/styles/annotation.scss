@@ -36,8 +36,12 @@ $annotation-card-left-padding: 10px;
     color: $grey-5;
   }
 
-  & > .annotation .annotation-replies__link {
+  & > .annotation .annotation-replies__link,
+  & > .annotation .annotation-replies__count {
     color: $grey-6;
+  }
+
+  & > .annotation .annotation-replies__link {
     text-decoration: underline;
   }
 
@@ -131,7 +135,8 @@ $annotation-card-left-padding: 10px;
   float: left;
 }
 
-.annotation-replies__link {
+.annotation-replies__link,
+.annotation-replies__count {
   @include font-normal;
   color: $grey-5;
 }
