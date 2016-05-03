@@ -33,8 +33,18 @@ $thread-padding: $annotation-card-left-padding;
   }
 }
 
-.thread-replies .thread:first-child {
-  margin-top: 0.5em;
+.thread-replies {
+  .annotation-action-btn {
+    color: $grey-4;
+  }
+
+  .thread:first-child {
+    margin-top: 0.5em;
+  }
+
+  .annotation-footer {
+    margin-top: $layout-h-margin - 5px;
+  }
 }
 
 .thread {
@@ -43,15 +53,36 @@ $thread-padding: $annotation-card-left-padding;
 
   & > ul {
     padding-left: $thread-padding + 3px;
+    padding-right: $thread-padding + 3px;
+    padding-top: $thread-padding - 9px;
     margin-left: -$thread-padding;
+    margin-right: -$thread-padding;
+    margin-top: $thread-padding;
   }
 
   // nested threads for annotation replies
   .thread {
-    border-left: 1px dotted $gray-light;
+    border-left: 1px dotted $grey-3;
     padding: 0;
     padding-left: $thread-padding;
     margin-top: 10px;
+
+    &:hover {
+      & > .threadexp > span {
+        color: $grey-7;
+      }
+    }
+  }
+
+  .thread-message:hover {
+    & > div >.annotation-footer .annotation-action-btn,
+    & > div >.annotation-footer .annotation-replies__link {
+     color: $grey-6;
+    }
+
+    & > div >.annotation-footer .annotation-replies__link {
+     text-decoration: underline;
+    }
   }
 
   .threadexp {
@@ -63,7 +94,7 @@ $thread-padding: $annotation-card-left-padding;
 
     span {
       background: $white;
-      color: $gray-light;
+      color: $grey-4;
       display: block;
       line-height: inherit;
       text-align: center;
