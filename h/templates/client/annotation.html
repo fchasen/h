@@ -141,17 +141,13 @@
 
     <div class="annotation-replies" ng-if="vm.replyCount > 0">
       <a href=""
-        class="annotation-replies__link"
         ng-click="vm.onReplyCountClick()">
-        <span>
-          {{ vm.isCollapsed ? 'Show' : 'Hide' }}
-        </span>
         <span
-          ng-pluralize count="vm.replyCount"
-          when="{'0': '', 'one': 'reply', 'other': 'replies'}">
+          class="annotation-replies__link">
+          {{ vm.isCollapsed ? 'Show replies' : 'Hide replies' }}
         </span>
+        <span class="annotation-replies__count">({{ vm.replyCount }})</span>
       </a>
-      <span class="annotation-replies__count">({{ vm.replyCount }})</span>
     </div>
 
     <div class="annotation-actions" ng-if="vm.isSaving">
