@@ -1,5 +1,8 @@
 'use strict';
 
+var EventEmitter = require('tiny-emitter');
+var inherits = require('inherits');
+
 var buildThread = require('./build-thread');
 var events = require('./events');
 var metadata = require('./annotation-metadata');
@@ -36,7 +39,8 @@ var sortFns = {
  * The root thread is then displayed by viewer.html
  */
 // @ngInject
-module.exports = function ($rootScope, annotationUI, searchFilter, viewFilter) {
+function RootThread($rootScope, annotationUI, searchFilter, viewFilter) {
+  var self = this;
   var thread;
 
   var sortFn = sortFns.Location;
@@ -72,6 +76,7 @@ module.exports = function ($rootScope, annotationUI, searchFilter, viewFilter) {
       sortCompareFn: sortFn,
       filterFn: filterFn,
     });
+    self.emit('changed', thread);
   }
   rebuildRootThread();
   annotationUI.subscribe(rebuildRootThread);
@@ -109,41 +114,42 @@ module.exports = function ($rootScope, annotationUI, searchFilter, viewFilter) {
     annotationUI.removeAnnotations(annotations);
   });
 
-  return {
-    /**
-     * Rebuild the conversation thread based on the currently loaded annotations
-     * and search/sort/filter settings.
-     */
-    rebuild: rebuildRootThread,
+  /**
+   * Rebuild the conversation thread based on the currently loaded annotations
+   * and search/sort/filter settings.
+   */
+  this.rebuild = rebuildRootThread;
 
-    /**
-     * Returns the current root conversation thread.
-     * @return {Thread}
-     */
-    thread: function () {
-      return thread;
-    },
-
-    /**
-     * Set the sort order for annotations.
-     * @param {'Location'|'Newest'|'Oldest'} mode
-     */
-    sortBy: function (mode) {
-      if (!sortFns[mode]) {
-        throw new Error('Unknown sort mode: ' + mode);
-      }
-      sortFn = sortFns[mode];
-      rebuildRootThread();
-    },
-
-    /**
-     * Set the query to use when filtering annotations.
-     * @param {string} query - The filter query
-     */
-    setSearchQuery: function (query) {
-      searchQuery = query;
-      annotationUI.clearForceVisible();
-      rebuildRootThread();
-    },
+  /**
+   * Returns the current root conversation thread.
+   * @return {Thread}
+   */
+  this.thread = function () {
+    return thread;
   };
-};
+
+  /**
+   * Set the sort order for annotations.
+   * @param {'Location'|'Newest'|'Oldest'} mode
+   */
+  this.sortBy = function (mode) {
+    if (!sortFns[mode]) {
+      throw new Error('Unknown sort mode: ' + mode);
+    }
+    sortFn = sortFns[mode];
+    rebuildRootThread();
+  };
+
+  /**
+   * Set the query to use when filtering annotations.
+   * @param {string} query - The filter query
+   */
+  this.setSearchQuery = function (query) {
+    searchQuery = query;
+    annotationUI.clearForceVisible();
+    rebuildRootThread();
+  };
+}
+inherits(RootThread, EventEmitter);
+
+module.exports = RootThread;

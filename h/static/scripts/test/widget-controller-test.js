@@ -26,6 +26,22 @@ function FakeSearchClient(resource, opts) {
 }
 inherits(FakeSearchClient, EventEmitter);
 
+function FakeRootThread() {
+  this.thread = sinon.stub().returns({
+    totalChildren: 0,
+  });
+  this.setSearchQuery = sinon.stub();
+  this.sortBy = sinon.stub();
+}
+inherits(FakeRootThread, EventEmitter);
+
+function FakeVirtualThreadList() {
+  this.setRootThread = sinon.stub();
+  this.setThreadHeight = sinon.stub();
+  this.detach = sinon.stub();
+}
+inherits(FakeVirtualThreadList, EventEmitter);
+
 describe('WidgetController', function () {
   var $rootScope;
   var $scope;
@@ -39,6 +55,7 @@ describe('WidgetController', function () {
   var fakeStore;
   var fakeStreamer;
   var fakeStreamFilter;
+  var fakeVirtualThreadList;
   var sandbox;
   var viewer;
 
@@ -115,14 +132,7 @@ describe('WidgetController', function () {
       focus: sinon.stub(),
     };
 
-    fakeRootThread = {
-      thread: sinon.stub().returns({
-        totalChildren: 0,
-      }),
-      // TODO - Test for usage
-      setSearchQuery: sinon.stub(),
-      sortBy: sinon.stub(),
-    };
+    fakeRootThread = new FakeRootThread();
 
     fakeSettings = {
       annotations: 'test',
@@ -132,6 +142,7 @@ describe('WidgetController', function () {
       SearchResource: {},
     };
 
+    $provide.value('VirtualThreadList', FakeVirtualThreadList);
     $provide.value('annotationMapper', fakeAnnotationMapper);
     $provide.value('annotationUI', fakeAnnotationUI);
     $provide.value('crossframe', fakeCrossFrame);
