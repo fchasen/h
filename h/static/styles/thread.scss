@@ -74,18 +74,6 @@ $thread-padding: $annotation-card-left-padding;
     }
   }
 
-  .thread-message:hover {
-    & > div >.annotation-footer .annotation-action-btn,
-    & > div >.annotation-footer .annotation-replies__link,
-    & > div >.annotation-footer .annotation-replies__count {
-     color: $grey-6;
-    }
-
-    & > div >.annotation-footer .annotation-replies__link {
-     text-decoration: underline;
-    }
-  }
-
   .threadexp {
     position: absolute;
     left: -.7em;

@@ -36,25 +36,24 @@ $annotation-card-left-padding: 10px;
     color: $grey-5;
   }
 
-  & > .annotation .annotation-replies__link,
-  & > .annotation .annotation-replies__count {
-    color: $grey-6;
-  }
-
-  & > .annotation .annotation-replies__link {
-    text-decoration: underline;
-  }
-
-  & > .annotation .annotation-action-btn {
-    color: $grey-6;
-  }
-
-  & > .annotation .annotation-body {
-    color: $grey-7;
-  }
-
   .annotation-header__timestamp {
     color: $grey-5;
+  }
+}
+
+// When hovering a top-level annotation, show the footer in a hovered state.
+// When hovering a reply (at any level), show the reply's own footer in
+// a hovered state and also the footer of the top-level annotation.
+.annotation-card:hover > .annotation,
+.annotation:hover {
+  .annotation-replies__link,
+  .annotation-replies__count,
+  .annotation-action-btn {
+    color: $grey-6;
+  }
+
+  .annotation-replies__link {
+    text-decoration: underline;
   }
 }
 
@@ -133,6 +132,7 @@ $annotation-card-left-padding: 10px;
 
 .annotation-replies {
   float: left;
+  margin-top: 2px;
 }
 
 .annotation-replies__link,
