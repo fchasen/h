@@ -35,10 +35,6 @@ $annotation-card-left-padding: 10px;
     border-left: $highlight 3px solid;
     color: $grey-5;
   }
-
-  .annotation-header__timestamp {
-    color: $grey-5;
-  }
 }
 
 // When hovering a top-level annotation, show the footer in a hovered state.
@@ -54,6 +50,10 @@ $annotation-card-left-padding: 10px;
 
   .annotation-replies__link {
     text-decoration: underline;
+  }
+
+  .annotation-header__timestamp {
+    color: $grey-5;
   }
 }
 
