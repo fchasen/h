@@ -49,7 +49,7 @@ $annotation-card-left-padding: 10px;
     color: $grey-6;
   }
 
-  & > .annotation .annotation-text {
+  & > .annotation .annotation-body {
     color: $grey-7;
   }
 
@@ -97,7 +97,7 @@ $annotation-card-left-padding: 10px;
   margin-left: 5px;
 }
 
-.annotation-text {
+.annotation-body {
   @include font-normal;
   color: $grey-6;
 }
