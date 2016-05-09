@@ -112,7 +112,7 @@ def get_exchange():
 def get_connection(settings):
     """Returns a `kombu.Connection` based on the application's settings."""
 
-    conn = settings.get('broker_url', 'amqp://guest:guest@localhost:5672//')
+    conn = settings.get('broker_url', 'amqp://guest:guest@192.168.99.100:5672//')
     return kombu.Connection(conn)
 
 

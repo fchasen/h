@@ -33,7 +33,7 @@ celery.conf.update(
     # Default to using database number 10 so we don't conflict with the session
     # store.
     BROKER_URL=os.environ.get('CELERY_BROKER_URL',
-        os.environ.get('BROKER_URL', 'amqp://guest:guest@localhost:5672//')),
+        os.environ.get('BROKER_URL', 'amqp://guest:guest@192.168.99.100:5672//')),
     CELERY_ACCEPT_CONTENT=['json'],
     # Enable at-least-once delivery mode. This probably isn't actually what we
     # want for all of our queues, but it makes the failure-mode behaviour of
