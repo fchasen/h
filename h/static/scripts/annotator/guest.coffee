@@ -109,6 +109,9 @@ module.exports = class Guest extends Annotator
     crossframe.on 'scrollToAnnotation', (tag) =>
       for anchor in @anchors when anchor.highlights?
         if anchor.annotation.$$tag is tag
+          # console.log anchor.target.selector
+          # this.publish("scrollToAnnotation", anchor.annotation);
+          this.publish("scrollToAnnotation", anchor.highlights[0]);
           scrollIntoView(anchor.highlights[0])
 
     crossframe.on 'getDocumentInfo', (cb) =>
@@ -394,7 +397,7 @@ module.exports = class Guest extends Annotator
     annotation = $(event.currentTarget).data('annotation')
     annotations = event.annotations ?= []
     annotations.push(annotation)
-
+    this.publish("highlightClick", annotation);
     # See the comment in onHighlightMouseover
     if event.target is event.currentTarget
       xor = (event.metaKey or event.ctrlKey)

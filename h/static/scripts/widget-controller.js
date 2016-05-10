@@ -48,6 +48,7 @@ module.exports = function WidgetController(
     if (!annotation) {
       return;
     }
+    // console.log(annotation.target.selector);
     crossframe.call('scrollToAnnotation', annotation.$$tag);
   }
 

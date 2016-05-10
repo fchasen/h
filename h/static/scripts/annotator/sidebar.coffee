@@ -135,7 +135,7 @@ module.exports = class Sidebar extends Host
   show: ->
     @frame.css 'margin-left': "#{-1 * @frame.width()}px"
     @frame.removeClass 'annotator-collapsed'
-
+    this.publish "show"
     if @toolbar?
       @toolbar.find('[name=sidebar-toggle]')
       .removeClass('h-icon-chevron-left')
@@ -144,7 +144,7 @@ module.exports = class Sidebar extends Host
   hide: ->
     @frame.css 'margin-left': ''
     @frame.addClass 'annotator-collapsed'
-
+    this.publish "hide"
     if @toolbar?
       @toolbar.find('[name=sidebar-toggle]')
       .removeClass('h-icon-chevron-right')
@@ -156,4 +156,5 @@ module.exports = class Sidebar extends Host
 
   showAnnotations: (annotations) ->
     super
+    console.log "show a"
     this.show()
